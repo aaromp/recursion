@@ -2,13 +2,25 @@
 describe("stringifyJSON", function(){
   it("should match the result of calling JSON.stringify", function(){
 
-    arrayWithValidElements.forEach(function(obj){
+    stringifiableValues.forEach(function(obj){
       var result = stringifyJSON(obj);
       var expected = JSON.stringify(obj);
       expect(result).toEqual(expected);
     });
 
-    objectWithInvalidAttributes.forEach(function(obj){
+    nonStringifiableValues.forEach(function(obj){
+      var result = stringifyJSON(obj);
+      var expected = JSON.stringify(obj);
+      expect(result).toEqual(expected);
+    });
+    
+    extraCreditStrings.forEach(function(obj){
+      var result = stringifyJSON(obj);
+      var expected = JSON.stringify(obj);
+      expect(result).toEqual(expected);
+    });
+    
+    arrayWithInvalidStrings.forEach(function(obj){
       var result = stringifyJSON(obj);
       var expected = JSON.stringify(obj);
       expect(result).toEqual(expected);
