@@ -2,6 +2,32 @@
 // var stringifyJSON = JSON.stringify;
 
 // but you don't so you're going to have to write it from scratch:
-var stringifyJSON = function (obj) {
-  // your code goes here
+var stringifyJSON = function (object) {
+  // base case: object is a primitive, null or undefined, so you're done, return it.
+  if (object === undefined) return '';
+  if (object === null) return 'null';
+  if (typeof object === 'string') return '"' + object + '"';
+  if (typeof object !== 'object') return '' + object;
+  
+  // recursive case: object is a collection, recurse over its elements.
+  var result;
+  if (object instanceof Array) {
+    result = '[';
+    _.each(object, function(element, index, list) {
+      if (index > 0) result += ',';
+      result += stringifyJSON(element);
+    });
+    return result += ']';
+  } else {
+    result = '{';
+    var multipleElements = false;
+    _.each(object, function(value, key, list) {
+      if (multipleElements) result += ',';
+      multipleElements = true;
+      
+      result += stringifyJSON(key) + ':' + stringifyJSON(value);
+    });
+    return result += '}';
+  }
+  
 };
