@@ -4,7 +4,7 @@
 // but you don't so you're going to have to write it from scratch:
 var stringifyJSON = function (object) {
   // base case: object is a primitive, null or undefined, so you're done, return it.
-  if (object === undefined) return '';
+  if (object === undefined || typeof object === 'function') return '';
   if (object === null) return 'null';
   if (typeof object === 'string') return '"' + object + '"';
   if (typeof object !== 'object') return '' + object;
@@ -22,10 +22,13 @@ var stringifyJSON = function (object) {
     result = '{';
     var multipleElements = false;
     _.each(object, function(value, key, list) {
-      if (multipleElements) result += ',';
-      multipleElements = true;
+      var stringifiedValue = stringifyJSON(value);
+      if (stringifiedValue !== '') {
+        if (multipleElements) result += ',';
+        multipleElements = true;
       
-      result += stringifyJSON(key) + ':' + stringifyJSON(value);
+        result += stringifyJSON(key) + ':' + stringifiedValue;
+      }
     });
     return result += '}';
   }
