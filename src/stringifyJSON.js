@@ -3,13 +3,14 @@
 
 // but you don't so you're going to have to write it from scratch:
 var stringifyJSON = function (object) {
-  // base case: object is a primitive, null or undefined, so you're done, return it.
+  // base case: object is a function, primitive, null or undefined, 
+  // so you're done, return it.
   if (object === undefined || typeof object === 'function') return '';
   if (object === null) return 'null';
   if (typeof object === 'string') return '"' + object + '"';
   if (typeof object !== 'object') return '' + object;
   
-  // recursive case: object is a collection, recurse over its elements.
+  // recursive case: object is a collection, recurse over each of its elements.
   var result;
   if (object instanceof Array) {
     result = '[';
